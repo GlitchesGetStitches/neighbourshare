@@ -508,7 +508,7 @@
       const data = await res.json();
       if (!data.ok) throw new Error(data.error);
       document.getElementById("joinForm").style.display = "none";
-      document.getElementById("successScreen").style.display = "";
+      document.getElementById("successScreen").style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       errEl.textContent = err.message || "Something went wrong. Please try again.";
@@ -571,7 +571,7 @@
           if (!data.ok) throw new Error(data.error);
         }
         document.getElementById("joinForm").style.display = "none";
-        document.getElementById("successScreen").style.display = "";
+        document.getElementById("successScreen").style.display = "block";
         document.querySelector("#successScreen h2").textContent = "Listings added!";
         document.querySelector("#successScreen p").textContent = "Your new listings are now live.";
         window.scrollTo({ top: 0, behavior: "smooth" });
