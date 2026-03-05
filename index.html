@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neighbourhood Skillshare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Config ── */
+    :root {
+      --ink:       #1a1a18;
+      --paper:     #f5f0e8;
+      --cream:     #ede8dc;
+      --warm:      #c8b89a;
+      --accent:    #2d5a3d;
+      --accent-lt: #d4e8da;
+      --rust:      #8b3a2a;
+      --rust-lt:   #f0ddd9;
+      --rule:      rgba(26,26,24,0.12);
+      --serif:     'Playfair Display', Georgia, serif;
+      --sans:      'DM Sans', system-ui, sans-serif;
+      --radius:    6px;
+      --shadow:    0 2px 16px rgba(26,26,24,0.08);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 80% 0%, rgba(200,184,154,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 0% 100%, rgba(45,90,61,0.06) 0%, transparent 50%);
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid var(--rule);
+      padding: 2.5rem 2rem 1.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .masthead h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .masthead h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .masthead p {
+      margin-top: 0.4rem;
+      font-size: 0.875rem;
+      color: #6b6559;
+      letter-spacing: 0.02em;
+    }
+    .header-actions a {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius);
+      transition: background 0.2s;
+    }
+    .header-actions a:hover { background: #1f3f2b; }
+
+    /* ── Search bar ── */
+    .search-bar {
+      padding: 1.25rem 2rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--rule);
+      background: var(--cream);
+    }
+    .search-bar input {
+      flex: 1 1 220px;
+      border: 1px solid var(--warm);
+      background: var(--paper);
+      border-radius: var(--radius);
+      padding: 0.55rem 0.9rem;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-bar input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(45,90,61,0.12);
+    }
+    .filter-pills {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .pill {
+      cursor: pointer;
+      border: 1px solid var(--warm);
+      background: var(--paper);
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: #5a5449;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .pill:hover { border-color: var(--accent); color: var(--accent); }
+    .pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── Main grid ── */
+    main {
+      padding: 1.5rem 2rem 4rem;
+    }
+    .results-meta {
+      font-size: 0.78rem;
+      color: #7a7268;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      animation: fadeUp 0.3s ease both;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(26,26,24,0.12);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .card-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .card-type.skill { background: var(--accent-lt); color: var(--accent); }
+    .card-type.item  { background: var(--rust-lt);   color: var(--rust); }
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: #5a5449;
+      line-height: 1.5;
+      flex: 1;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: #7a7268;
+      border-top: 1px solid var(--rule);
+      padding-top: 0.6rem;
+      margin-top: auto;
+    }
+    .card-meta .owner { font-weight: 500; color: var(--ink); }
+    .card-conditions {
+      font-size: 0.75rem;
+      color: #7a7268;
+      font-style: italic;
+    }
+    .btn-request {
+      margin-top: 0.5rem;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.55rem;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-request:hover { background: #1f3f2b; }
+
+    /* ── Empty / loading states ── */
+    .state-msg {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #7a7268;
+      font-size: 0.9rem;
+    }
+    .state-msg .big { font-family: var(--serif); font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+
+    /* ── Modal backdrop ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,26,24,0.5);
+      backdrop-filter: blur(3px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-backdrop.open { display: flex; }
+
+    /* ── Modal ── */
+    .modal {
+      background: var(--paper);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 24px 64px rgba(26,26,24,0.25);
+      animation: modalIn 0.2s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95) translateY(8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal h2 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+    .modal .modal-sub {
+      font-size: 0.82rem;
+      color: #6b6559;
+      margin-bottom: 1.5rem;
+    }
+    .modal label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #5a5449;
+      margin-bottom: 0.3rem;
+    }
+    .modal input,
+    .modal textarea {
+      width: 100%;
+      border: 1px solid var(--warm);
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 0.55rem 0.75rem;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .modal input:focus,
+    .modal textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(45,90,61,0.12);
+    }
+    .modal textarea { resize: vertical; min-height: 90px; }
+    .modal-actions {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+    }
+    .btn-cancel {
+      background: none;
+      border: 1px solid var(--warm);
+      border-radius: var(--radius);
+      padding: 0.55rem 1rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--ink);
+      transition: border-color 0.2s;
+    }
+    .btn-cancel:hover { border-color: var(--ink); }
+    .btn-send {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.55rem 1.4rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-send:hover { background: #1f3f2b; }
+    .btn-send:disabled { background: var(--warm); cursor: not-allowed; }
+
+    .modal-success {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .modal-success .tick {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .modal-success h3 {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+    .modal-success p { font-size: 0.85rem; color: #6b6559; }
+    .error-msg { color: var(--rust); font-size: 0.8rem; margin-top: -0.5rem; margin-bottom: 0.75rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="masthead">
+    <h1>Neighbour<em>share</em></h1>
+    <p>Skills &amp; things to borrow in our neighbourhood</p>
+  </div>
+  <div class="header-actions">
+    <a href="join.html">Add yourself →</a>
+  </div>
+</header>
+
+<div class="search-bar">
+  <input type="search" id="searchInput" placeholder="Search skills, items…" autocomplete="off" />
+  <div class="filter-pills">
+    <span class="pill active" data-filter="all">All</span>
+    <span class="pill" data-filter="skill">Skills</span>
+    <span class="pill" data-filter="item">Items</span>
+  </div>
+</div>
+
+<main>
+  <div class="results-meta" id="resultsMeta"></div>
+  <div class="grid" id="grid">
+    <div class="state-msg"><span class="big">⏳</span>Loading listings…</div>
+  </div>
+</main>
+
+<!-- Contact modal -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modal">
+    <div id="modalForm">
+      <h2>Send a request</h2>
+      <p class="modal-sub" id="modalSub"></p>
+      <label>Your name</label>
+      <input type="text" id="reqName" placeholder="Janet Smith" />
+      <label>Your email</label>
+      <input type="email" id="reqEmail" placeholder="you@example.com" />
+      <label>Message</label>
+      <textarea id="reqMessage" placeholder="Hi! I'd love to borrow your hedge trimmer this weekend if possible…"></textarea>
+      <div class="error-msg" id="modalError"></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="btnCancel">Cancel</button>
+        <button class="btn-send" id="btnSend">Send request</button>
+      </div>
+    </div>
+    <div id="modalSuccess" class="modal-success" style="display:none">
+      <span class="tick">✉️</span>
+      <h3>Request sent!</h3>
+      <p>Your message is on its way. If they'd like to help, they'll reply to your email directly.</p>
+      <div class="modal-actions" style="justify-content:center;margin-top:1rem">
+        <button class="btn-send" id="btnSuccessClose">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── CONFIG — update these ──────────────────────────────────
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqUe_sgR0n8DHBp8kDj1gmYsD-k6GfuVNbrh9hPJf4euUtyGgtQyFkqHjQ5gCIiTc/exec";
+  const SECRET_TOKEN    = "m1ffybi4-dr4g0n-hi5u2ww1";
+  // ──────────────────────────────────────────────────────────
+
+  let allListings = [];
+  let currentFilter = "all";
+  let activeListing = null;
+
+  // ── Fetch listings ─────────────────────────────────────────
+  async function loadListings() {
+    try {
+      const res = await fetch(APPS_SCRIPT_URL);
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error);
+      allListings = data.listings;
+      render();
+    } catch (err) {
+      document.getElementById("grid").innerHTML =
+        `<div class="state-msg"><span class="big">😕</span>Couldn't load listings. Try refreshing.</div>`;
+    }
+  }
+
+  // ── Render ─────────────────────────────────────────────────
+  function render() {
+    const query = document.getElementById("searchInput").value.trim().toLowerCase();
+    const filtered = allListings.filter(l => {
+      const matchType = currentFilter === "all" || l.type === currentFilter;
+      const matchQuery = !query ||
+        l.title.toLowerCase().includes(query) ||
+        (l.description || "").toLowerCase().includes(query) ||
+        l.display_name.toLowerCase().includes(query);
+      return matchType && matchQuery;
+    });
+
+    const meta = document.getElementById("resultsMeta");
+    meta.textContent = filtered.length === 0
+      ? ""
+      : `${filtered.length} listing${filtered.length !== 1 ? "s" : ""}`;
+
+    const grid = document.getElementById("grid");
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="state-msg"><span class="big">🌱</span>Nothing found — try a different search.</div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map((l, i) => `
+      <div class="card" style="animation-delay:${i * 30}ms">
+        <span class="card-type ${l.type}">${l.type === "skill" ? "⚡ Skill" : "📦 Item"}</span>
+        <div class="card-title">${esc(l.title)}</div>
+        ${l.description ? `<div class="card-desc">${esc(l.description)}</div>` : ""}
+        ${l.conditions ? `<div class="card-conditions">📌 ${esc(l.conditions)}</div>` : ""}
+        <div class="card-meta">
+          <span class="owner">👤 ${esc(l.display_name)}</span>
+          ${l.area ? `<span>${esc(l.area)}</span>` : ""}
+        </div>
+        <button class="btn-request" data-id="${l.listing_id}" data-title="${esc(l.title)}" data-owner="${esc(l.display_name)}">
+          Request
+        </button>
+      </div>
+    `).join("");
+
+    // Attach request button listeners
+    grid.querySelectorAll(".btn-request").forEach(btn => {
+      btn.addEventListener("click", () => openModal(btn.dataset.id, btn.dataset.title, btn.dataset.owner));
+    });
+  }
+
+  function esc(str) {
+    return String(str || "")
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;");
+  }
+
+  // ── Filters & search ───────────────────────────────────────
+  document.querySelectorAll(".pill").forEach(pill => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      currentFilter = pill.dataset.filter;
+      render();
+    });
+  });
+
+  document.getElementById("searchInput").addEventListener("input", render);
+
+  // ── Modal ──────────────────────────────────────────────────
+  function openModal(listingId, title, owner) {
+    activeListing = { listingId, title, owner };
+    document.getElementById("modalSub").textContent = `"${title}" · ${owner}`;
+    document.getElementById("modalForm").style.display = "";
+    document.getElementById("modalSuccess").style.display = "none";
+    document.getElementById("modalError").textContent = "";
+    document.getElementById("modalBackdrop").classList.add("open");
+    document.getElementById("reqName").focus();
+  }
+
+  function closeModal() {
+    document.getElementById("modalBackdrop").classList.remove("open");
+    activeListing = null;
+    document.getElementById("reqName").value = "";
+    document.getElementById("reqEmail").value = "";
+    document.getElementById("reqMessage").value = "";
+  }
+
+  document.getElementById("btnCancel").addEventListener("click", closeModal);
+  document.getElementById("btnSuccessClose").addEventListener("click", closeModal);
+  document.getElementById("modalBackdrop").addEventListener("click", e => {
+    if (e.target === document.getElementById("modalBackdrop")) closeModal();
+  });
+
+  document.getElementById("btnSend").addEventListener("click", async () => {
+    const name    = document.getElementById("reqName").value.trim();
+    const email   = document.getElementById("reqEmail").value.trim();
+    const message = document.getElementById("reqMessage").value.trim();
+    const errEl   = document.getElementById("modalError");
+    const btn     = document.getElementById("btnSend");
+
+    if (!name || !email || !message) {
+      errEl.textContent = "Please fill in all fields."; return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = "Please enter a valid email address."; return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+    errEl.textContent = "";
+
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "contact",
+          secret: SECRET_TOKEN,
+          listing_id: activeListing.listingId,
+          requester_name: name,
+          requester_email: email,
+          message
+        })
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error);
+      document.getElementById("modalForm").style.display = "none";
+      document.getElementById("modalSuccess").style.display = "";
+    } catch (err) {
+      errEl.textContent = "Something went wrong. Please try again.";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Send request";
+    }
+  });
+
+  // ── Init ───────────────────────────────────────────────────
+  loadListings();
+</script>
+</body>
+</html>
