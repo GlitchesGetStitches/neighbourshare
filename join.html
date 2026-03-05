@@ -323,7 +323,7 @@
 <div class="page">
 
   <div id="joinForm">
-    <h1 class="page-title">Join the <em>map</em></h1>
+    <h1 class="page-title">Add your <em>listings</em></h1>
     <p class="page-intro">Add yourself so neighbours can find your skills and things to borrow. Your email is never shown publicly — it's only used to forward contact requests to you.</p>
 
     <!-- ── About you ── -->
@@ -359,14 +359,14 @@
       <strong>Privacy:</strong> Only your display name and area are shown on the public listing. Your email address is stored privately and only used to send you contact requests from neighbours. You can ask to have your details removed at any time.
     </div>
 
-    <button class="btn-submit" id="btnSubmit">Add me to the map</button>
+    <button class="btn-submit" id="btnSubmit">Add my listings</button>
     <div class="form-error" id="formError"></div>
   </div>
 
   <!-- Success screen -->
   <div id="successScreen">
     <span class="icon">🎉</span>
-    <h2>You're on the map!</h2>
+    <h2>You're listed!</h2>
     <p>Your listings are now live. Check your email — we've sent you a link so you can add more items or skills any time.</p>
     <a href="index.html">Browse the listings →</a>
   </div>
@@ -514,7 +514,7 @@
       errEl.textContent = err.message || "Something went wrong. Please try again.";
     } finally {
       btn.disabled = false;
-      btn.textContent = "Add me to the map";
+      btn.textContent = "Add my listings";
     }
   });
 
