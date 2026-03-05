@@ -315,22 +315,14 @@
     container.innerHTML = `<div class="empty-msg">Loading…</div>`;
 
     try {
-      const res = await fetch(APPS_SCRIPT_URL);
-      const data = await res.json();
-      if (!data.ok) throw new Error(data.error);
-
-      // The public endpoint returns all listings with member_id.
-      // We fetch all listings then filter client-side by matching
-      // the token — but we need the member_id first.
-      // So we use a dedicated endpoint instead:
-      const res2 = await fetch(APPS_SCRIPT_URL, {
+      const res = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         body: JSON.stringify({ action: "get_my_listings", token })
       });
-      const data2 = await res2.json();
-      if (!data2.ok) throw new Error(data2.error);
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error);
 
-      renderListings(data2.listings, token);
+      renderListings(data.listings, token);
     } catch (err) {
       container.innerHTML = `<div class="empty-msg"><span class="big">😕</span>Couldn't load your listings. Try clicking the link in your email again.</div>`;
     }
