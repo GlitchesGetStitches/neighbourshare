@@ -412,8 +412,8 @@
 
 <script>
   // ── CONFIG — update these ──────────────────────────────────
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqUe_sgR0n8DHBp8kDj1gmYsD-k6GfuVNbrh9hPJf4euUtyGgtQyFkqHjQ5gCIiTc/exec";
-  const SECRET_TOKEN    = "m1ffybi4-dr4g0n-hi5u2ww1";
+  const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+  const SECRET_TOKEN    = "YOUR_SECRET_TOKEN_HERE";
   // ──────────────────────────────────────────────────────────
 
   let allListings = [];
@@ -501,7 +501,7 @@
   function openModal(listingId, title, owner) {
     activeListing = { listingId, title, owner };
     document.getElementById("modalSub").textContent = `"${title}" · ${owner}`;
-    document.getElementById("modalForm").style.display = "";
+    document.getElementById("modalForm").style.display = "block";
     document.getElementById("modalSuccess").style.display = "none";
     document.getElementById("modalError").textContent = "";
     document.getElementById("modalBackdrop").classList.add("open");
@@ -555,7 +555,7 @@
       const data = await res.json();
       if (!data.ok) throw new Error(data.error);
       document.getElementById("modalForm").style.display = "none";
-      document.getElementById("modalSuccess").style.display = "";
+      document.getElementById("modalSuccess").style.display = "block";
     } catch (err) {
       errEl.textContent = "Something went wrong. Please try again.";
     } finally {
