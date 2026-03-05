@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neighbourhood Skillshare</title>
+  <title>Join — Neighbourhood Skillshare</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* ── Config ── */
     :root {
       --ink:       #1a1a18;
       --paper:     #f5f0e8;
@@ -21,12 +20,9 @@
       --serif:     'Playfair Display', Georgia, serif;
       --sans:      'DM Sans', system-ui, sans-serif;
       --radius:    6px;
-      --shadow:    0 2px 16px rgba(26,26,24,0.08);
     }
 
-    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; }
     body {
       background: var(--paper);
       color: var(--ink);
@@ -34,322 +30,285 @@
       font-weight: 300;
       min-height: 100vh;
       background-image:
-        radial-gradient(ellipse at 80% 0%, rgba(200,184,154,0.25) 0%, transparent 60%),
-        radial-gradient(ellipse at 0% 100%, rgba(45,90,61,0.06) 0%, transparent 50%);
+        radial-gradient(ellipse at 20% 0%, rgba(200,184,154,0.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 100% 80%, rgba(45,90,61,0.07) 0%, transparent 50%);
     }
 
     /* ── Header ── */
     header {
       border-bottom: 1px solid var(--rule);
-      padding: 2.5rem 2rem 1.5rem;
+      padding: 2rem 2rem 1.25rem;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       gap: 1rem;
-      flex-wrap: wrap;
     }
     .masthead h1 {
       font-family: var(--serif);
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1;
     }
-    .masthead h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .masthead p {
-      margin-top: 0.4rem;
-      font-size: 0.875rem;
-      color: #6b6559;
-      letter-spacing: 0.02em;
-    }
-    .header-actions a {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      font-family: var(--sans);
+    .masthead h1 em { font-style: italic; color: var(--accent); }
+    header a {
       font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      color: var(--accent);
       text-decoration: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: var(--radius);
-      transition: background 0.2s;
+      letter-spacing: 0.03em;
     }
-    .header-actions a:hover { background: #1f3f2b; }
+    header a:hover { text-decoration: underline; }
 
-    /* ── Search bar ── */
-    .search-bar {
-      padding: 1.25rem 2rem;
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-      flex-wrap: wrap;
-      border-bottom: 1px solid var(--rule);
-      background: var(--cream);
+    /* ── Layout ── */
+    .page {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
     }
-    .search-bar input {
-      flex: 1 1 220px;
+
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .page-title em { font-style: italic; color: var(--accent); }
+    .page-intro {
+      font-size: 0.9rem;
+      color: #6b6559;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 2.5rem;
+    }
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--accent-lt);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── Fields ── */
+    .field { margin-bottom: 1.1rem; }
+    .field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #5a5449;
+      margin-bottom: 0.3rem;
+    }
+    .field label .opt {
+      font-weight: 300;
+      text-transform: none;
+      letter-spacing: 0;
+      color: #9a9086;
+      font-size: 0.75rem;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
       border: 1px solid var(--warm);
-      background: var(--paper);
+      background: #fff;
       border-radius: var(--radius);
-      padding: 0.55rem 0.9rem;
+      padding: 0.6rem 0.85rem;
       font-family: var(--sans);
       font-size: 0.9rem;
       color: var(--ink);
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
     }
-    .search-bar input:focus {
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(45,90,61,0.12);
     }
-    .filter-pills {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-    .pill {
-      cursor: pointer;
-      border: 1px solid var(--warm);
-      background: var(--paper);
-      border-radius: 999px;
-      padding: 0.35rem 0.85rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      color: #5a5449;
-      transition: all 0.15s;
-      user-select: none;
-    }
-    .pill:hover { border-color: var(--accent); color: var(--accent); }
-    .pill.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .field textarea { resize: vertical; min-height: 70px; }
 
-    /* ── Main grid ── */
-    main {
-      padding: 1.5rem 2rem 4rem;
-    }
-    .results-meta {
-      font-size: 0.78rem;
-      color: #7a7268;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1rem;
-    }
+    /* ── Listing cards ── */
+    #listingsList { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
 
-    /* ── Card ── */
-    .card {
+    .listing-card {
       background: #fff;
       border: 1px solid var(--rule);
       border-radius: 10px;
-      padding: 1.25rem;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: transform 0.15s, box-shadow 0.15s;
-      animation: fadeUp 0.3s ease both;
+      padding: 1rem 1rem 0.75rem;
+      position: relative;
+      animation: slideIn 0.2s ease;
     }
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(26,26,24,0.12);
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .card-type {
+    .listing-card .lc-type {
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
       font-size: 0.7rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
+      padding: 0.15rem 0.55rem;
       border-radius: 999px;
-      width: fit-content;
-    }
-    .card-type.skill { background: var(--accent-lt); color: var(--accent); }
-    .card-type.item  { background: var(--rust-lt);   color: var(--rust); }
-    .card-title {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-    .card-desc {
-      font-size: 0.85rem;
-      color: #5a5449;
-      line-height: 1.5;
-      flex: 1;
-    }
-    .card-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.78rem;
-      color: #7a7268;
-      border-top: 1px solid var(--rule);
-      padding-top: 0.6rem;
-      margin-top: auto;
-    }
-    .card-meta .owner { font-weight: 500; color: var(--ink); }
-    .card-conditions {
-      font-size: 0.75rem;
-      color: #7a7268;
-      font-style: italic;
-    }
-    .btn-request {
-      margin-top: 0.5rem;
-      width: 100%;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      padding: 0.55rem;
-      font-family: var(--sans);
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-request:hover { background: #1f3f2b; }
-
-    /* ── Empty / loading states ── */
-    .state-msg {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: #7a7268;
-      font-size: 0.9rem;
-    }
-    .state-msg .big { font-family: var(--serif); font-size: 2rem; display: block; margin-bottom: 0.5rem; }
-
-    /* ── Modal backdrop ── */
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(26,26,24,0.5);
-      backdrop-filter: blur(3px);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-    .modal-backdrop.open { display: flex; }
-
-    /* ── Modal ── */
-    .modal {
-      background: var(--paper);
-      border-radius: 12px;
-      padding: 2rem;
-      width: 100%;
-      max-width: 440px;
-      box-shadow: 0 24px 64px rgba(26,26,24,0.25);
-      animation: modalIn 0.2s ease;
-    }
-    @keyframes modalIn {
-      from { opacity: 0; transform: scale(0.95) translateY(8px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .modal h2 {
-      font-family: var(--serif);
-      font-size: 1.4rem;
-      margin-bottom: 0.3rem;
-    }
-    .modal .modal-sub {
-      font-size: 0.82rem;
-      color: #6b6559;
-      margin-bottom: 1.5rem;
-    }
-    .modal label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #5a5449;
-      margin-bottom: 0.3rem;
-    }
-    .modal input,
-    .modal textarea {
-      width: 100%;
-      border: 1px solid var(--warm);
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 0.55rem 0.75rem;
-      font-family: var(--sans);
-      font-size: 0.9rem;
-      color: var(--ink);
-      outline: none;
-      margin-bottom: 1rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .modal input:focus,
-    .modal textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(45,90,61,0.12);
-    }
-    .modal textarea { resize: vertical; min-height: 90px; }
-    .modal-actions {
-      display: flex;
-      gap: 0.6rem;
-      justify-content: flex-end;
-      margin-top: 0.5rem;
-    }
-    .btn-cancel {
-      background: none;
-      border: 1px solid var(--warm);
-      border-radius: var(--radius);
-      padding: 0.55rem 1rem;
-      font-family: var(--sans);
-      font-size: 0.85rem;
-      cursor: pointer;
-      color: var(--ink);
-      transition: border-color 0.2s;
-    }
-    .btn-cancel:hover { border-color: var(--ink); }
-    .btn-send {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      padding: 0.55rem 1.4rem;
-      font-family: var(--sans);
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-send:hover { background: #1f3f2b; }
-    .btn-send:disabled { background: var(--warm); cursor: not-allowed; }
-
-    .modal-success {
-      text-align: center;
-      padding: 1rem 0;
-    }
-    .modal-success .tick {
-      font-size: 2.5rem;
-      display: block;
       margin-bottom: 0.75rem;
     }
-    .modal-success h3 {
-      font-family: var(--serif);
-      font-size: 1.3rem;
-      margin-bottom: 0.4rem;
+    .listing-card .lc-type.skill { background: var(--accent-lt); color: var(--accent); }
+    .listing-card .lc-type.item  { background: var(--rust-lt); color: var(--rust); }
+    .listing-card .lc-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 0.75rem;
     }
-    .modal-success p { font-size: 0.85rem; color: #6b6559; }
-    .error-msg { color: var(--rust); font-size: 0.8rem; margin-top: -0.5rem; margin-bottom: 0.75rem; }
+    .listing-card .lc-fields .full { grid-column: 1 / -1; }
+    .listing-card .lc-fields label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #5a5449;
+      margin-bottom: 0.2rem;
+    }
+    .listing-card .lc-fields input,
+    .listing-card .lc-fields textarea {
+      width: 100%;
+      border: 1px solid var(--warm);
+      background: var(--paper);
+      border-radius: var(--radius);
+      padding: 0.45rem 0.65rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .listing-card .lc-fields input:focus,
+    .listing-card .lc-fields textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(45,90,61,0.1);
+    }
+    .listing-card .lc-fields textarea { resize: vertical; min-height: 56px; }
+    .btn-remove {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #aaa;
+      line-height: 1;
+      padding: 0.1rem 0.2rem;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .btn-remove:hover { color: var(--rust); background: var(--rust-lt); }
+
+    /* ── Add buttons ── */
+    .add-btns {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .btn-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border: 1.5px dashed var(--warm);
+      background: none;
+      border-radius: var(--radius);
+      padding: 0.5rem 1rem;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: #5a5449;
+    }
+    .btn-add:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
+    .btn-add.item:hover { border-color: var(--rust); color: var(--rust); background: var(--rust-lt); }
+
+    /* ── Privacy note ── */
+    .privacy-note {
+      background: var(--cream);
+      border-left: 3px solid var(--warm);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 0.85rem 1rem;
+      font-size: 0.8rem;
+      color: #5a5449;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+    .privacy-note strong { color: var(--ink); }
+
+    /* ── Submit ── */
+    .btn-submit {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.85rem;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover { background: #1f3f2b; }
+    .btn-submit:active { transform: scale(0.99); }
+    .btn-submit:disabled { background: var(--warm); cursor: not-allowed; }
+
+    .form-error {
+      color: var(--rust);
+      font-size: 0.82rem;
+      margin-top: 0.6rem;
+      text-align: center;
+    }
+
+    /* ── Success screen ── */
+    #successScreen {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    #successScreen .icon { font-size: 3.5rem; display: block; margin-bottom: 1rem; }
+    #successScreen h2 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    #successScreen p {
+      color: #6b6559;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 340px;
+      margin: 0 auto 1.5rem;
+    }
+    #successScreen a {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
@@ -357,127 +316,207 @@
 <header>
   <div class="masthead">
     <h1>Neighbour<em>share</em></h1>
-    <p>Skills &amp; things to borrow in our neighbourhood</p>
   </div>
-  <div class="header-actions">
-    <a href="manage.html" style="background:none;color:var(--accent);border:1px solid var(--accent);margin-right:0.5rem;">Manage my listings</a>
-    <a href="join.html">Add yourself →</a>
-  </div>
+  <a href="index.html">← Browse listings</a>
 </header>
 
-<div class="search-bar">
-  <input type="search" id="searchInput" placeholder="Search skills, items…" autocomplete="off" />
-  <div class="filter-pills">
-    <span class="pill active" data-filter="all">All</span>
-    <span class="pill" data-filter="skill">Skills</span>
-    <span class="pill" data-filter="item">Items</span>
-  </div>
-</div>
+<div class="page">
 
-<main>
-  <div class="results-meta" id="resultsMeta"></div>
-  <div class="grid" id="grid">
-    <div class="state-msg"><span class="big">⏳</span>Loading listings…</div>
-  </div>
-</main>
+  <div id="joinForm">
+    <h1 class="page-title">Join the <em>map</em></h1>
+    <p class="page-intro">Add yourself so neighbours can find your skills and things to borrow. Your email is never shown publicly — it's only used to forward contact requests to you.</p>
 
-<!-- Contact modal -->
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal" id="modal">
-    <div id="modalForm">
-      <h2>Send a request</h2>
-      <p class="modal-sub" id="modalSub"></p>
-      <label>Your name</label>
-      <input type="text" id="reqName" placeholder="Janet Smith" />
-      <label>Your email</label>
-      <input type="email" id="reqEmail" placeholder="you@example.com" />
-      <label>Message</label>
-      <textarea id="reqMessage" placeholder="Hi! I'd love to borrow your hedge trimmer this weekend if possible…"></textarea>
-      <div class="error-msg" id="modalError"></div>
-      <div class="modal-actions">
-        <button class="btn-cancel" id="btnCancel">Cancel</button>
-        <button class="btn-send" id="btnSend">Send request</button>
+    <!-- ── About you ── -->
+    <div class="section">
+      <div class="section-label">About you</div>
+
+      <div class="field">
+        <label>Display name <span class="opt">(shown publicly — first name or alias is fine)</span></label>
+        <input type="text" id="displayName" placeholder="e.g. Janet, or JanetSS2" autocomplete="name" />
+      </div>
+      <div class="field">
+        <label>Email address <span class="opt">(private — never shown publicly)</span></label>
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <div class="field">
+        <label>Your area <span class="opt">(optional — helps people know you're nearby)</span></label>
+        <input type="text" id="area" placeholder="e.g. SS2, or Chalkwell" />
       </div>
     </div>
-    <div id="modalSuccess" class="modal-success" style="display:none">
-      <span class="tick">✉️</span>
-      <h3>Request sent!</h3>
-      <p>Your message is on its way. If they'd like to help, they'll reply to your email directly.</p>
-      <div class="modal-actions" style="justify-content:center;margin-top:1rem">
-        <button class="btn-send" id="btnSuccessClose">Close</button>
+
+    <!-- ── Listings ── -->
+    <div class="section">
+      <div class="section-label">Your skills &amp; items</div>
+      <div id="listingsList"></div>
+      <div class="add-btns">
+        <button class="btn-add skill" id="btnAddSkill">⚡ Add a skill</button>
+        <button class="btn-add item"  id="btnAddItem">📦 Add an item</button>
       </div>
     </div>
+
+    <!-- ── Privacy ── -->
+    <div class="privacy-note">
+      <strong>Privacy:</strong> Only your display name and area are shown on the public listing. Your email address is stored privately and only used to send you contact requests from neighbours. You can ask to have your details removed at any time.
+    </div>
+
+    <button class="btn-submit" id="btnSubmit">Add me to the map</button>
+    <div class="form-error" id="formError"></div>
   </div>
+
+  <!-- Success screen -->
+  <div id="successScreen">
+    <span class="icon">🎉</span>
+    <h2>You're on the map!</h2>
+    <p>Your listings are now live. Check your email — we've sent you a link so you can add more items or skills any time.</p>
+    <a href="index.html">Browse the listings →</a>
+  </div>
+
 </div>
 
 <script>
-  // ── CONFIG — update these ──────────────────────────────────
-  const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
-  const SECRET_TOKEN    = "YOUR_SECRET_TOKEN_HERE";
+  // ── CONFIG ─────────────────────────────────────────────────
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqUe_sgR0n8DHBp8kDj1gmYsD-k6GfuVNbrh9hPJf4euUtyGgtQyFkqHjQ5gCIiTc/exec";
+  const SECRET_TOKEN    = "m1ffybi4-dr4g0n-hi5u2ww1";
   // ──────────────────────────────────────────────────────────
 
-  let allListings = [];
-  let currentFilter = "all";
-  let activeListing = null;
+  let listings = [];
+  let listingCounter = 0;
 
-  // ── Fetch listings ─────────────────────────────────────────
-  async function loadListings() {
-    try {
-      const res = await fetch(APPS_SCRIPT_URL);
-      const data = await res.json();
-      if (!data.ok) throw new Error(data.error);
-      allListings = data.listings;
-      render();
-    } catch (err) {
-      document.getElementById("grid").innerHTML =
-        `<div class="state-msg"><span class="big">😕</span>Couldn't load listings. Try refreshing.</div>`;
-    }
+  // ── Add listing card ───────────────────────────────────────
+  function addListing(type) {
+    const id = listingCounter++;
+    listings.push({ id, type, title: "", description: "", conditions: "" });
+    renderListings();
+    // Focus the title input of the new card
+    setTimeout(() => {
+      const el = document.querySelector(`[data-listing-id="${id}"] input[data-field="title"]`);
+      if (el) el.focus();
+    }, 50);
   }
 
-  // ── Render ─────────────────────────────────────────────────
-  function render() {
-    const query = document.getElementById("searchInput").value.trim().toLowerCase();
-    const filtered = allListings.filter(l => {
-      const matchType = currentFilter === "all" || l.type === currentFilter;
-      const matchQuery = !query ||
-        l.title.toLowerCase().includes(query) ||
-        (l.description || "").toLowerCase().includes(query) ||
-        l.display_name.toLowerCase().includes(query);
-      return matchType && matchQuery;
-    });
+  function removeListing(id) {
+    listings = listings.filter(l => l.id !== id);
+    renderListings();
+  }
 
-    const meta = document.getElementById("resultsMeta");
-    meta.textContent = filtered.length === 0
-      ? ""
-      : `${filtered.length} listing${filtered.length !== 1 ? "s" : ""}`;
+  function updateListing(id, field, value) {
+    const l = listings.find(l => l.id === id);
+    if (l) l[field] = value;
+  }
 
-    const grid = document.getElementById("grid");
-    if (filtered.length === 0) {
-      grid.innerHTML = `<div class="state-msg"><span class="big">🌱</span>Nothing found — try a different search.</div>`;
+  function renderListings() {
+    const container = document.getElementById("listingsList");
+    if (listings.length === 0) {
+      container.innerHTML = "";
       return;
     }
 
-    grid.innerHTML = filtered.map((l, i) => `
-      <div class="card" style="animation-delay:${i * 30}ms">
-        <span class="card-type ${l.type}">${l.type === "skill" ? "⚡ Skill" : "📦 Item"}</span>
-        <div class="card-title">${esc(l.title)}</div>
-        ${l.description ? `<div class="card-desc">${esc(l.description)}</div>` : ""}
-        ${l.conditions ? `<div class="card-conditions">📌 ${esc(l.conditions)}</div>` : ""}
-        <div class="card-meta">
-          <span class="owner">👤 ${esc(l.display_name)}</span>
-          ${l.area ? `<span>${esc(l.area)}</span>` : ""}
+    // Preserve focus
+    const focused = document.activeElement;
+    const focusId   = focused?.dataset?.listingId;
+    const focusField = focused?.dataset?.field;
+
+    container.innerHTML = listings.map(l => `
+      <div class="listing-card" data-listing-id="${l.id}">
+        <span class="lc-type ${l.type}">${l.type === "skill" ? "⚡ Skill" : "📦 Item"}</span>
+        <button class="btn-remove" data-remove="${l.id}" title="Remove">✕</button>
+        <div class="lc-fields">
+          <div class="full">
+            <label>${l.type === "skill" ? "Skill name" : "Item name"}</label>
+            <input type="text"
+              data-listing-id="${l.id}" data-field="title"
+              value="${esc(l.title)}"
+              placeholder="${l.type === "skill" ? "e.g. Basic plumbing, Guitar lessons" : "e.g. Hedge trimmer, Pasta machine"}" />
+          </div>
+          <div>
+            <label>Description <span style="font-weight:300;text-transform:none;letter-spacing:0;color:#9a9086;font-size:0.72rem">(optional)</span></label>
+            <textarea data-listing-id="${l.id}" data-field="description"
+              placeholder="Any details…">${esc(l.description)}</textarea>
+          </div>
+          <div>
+            <label>Conditions <span style="font-weight:300;text-transform:none;letter-spacing:0;color:#9a9086;font-size:0.72rem">(optional)</span></label>
+            <textarea data-listing-id="${l.id}" data-field="conditions"
+              placeholder="e.g. Weekends only, must collect">${esc(l.conditions)}</textarea>
+          </div>
         </div>
-        <button class="btn-request" data-id="${l.listing_id}" data-title="${esc(l.title)}" data-owner="${esc(l.display_name)}">
-          Request
-        </button>
       </div>
     `).join("");
 
-    // Attach request button listeners
-    grid.querySelectorAll(".btn-request").forEach(btn => {
-      btn.addEventListener("click", () => openModal(btn.dataset.id, btn.dataset.title, btn.dataset.owner));
+    // Restore focus
+    if (focusId !== undefined && focusField) {
+      const el = container.querySelector(`[data-listing-id="${focusId}"][data-field="${focusField}"]`);
+      if (el) {
+        el.focus();
+        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+          el.selectionStart = el.selectionEnd = el.value.length;
+        }
+      }
+    }
+
+    // Attach listeners
+    container.querySelectorAll("input[data-listing-id], textarea[data-listing-id]").forEach(el => {
+      el.addEventListener("input", () => updateListing(Number(el.dataset.listingId), el.dataset.field, el.value));
+    });
+    container.querySelectorAll("[data-remove]").forEach(btn => {
+      btn.addEventListener("click", () => removeListing(Number(btn.dataset.remove)));
     });
   }
+
+  document.getElementById("btnAddSkill").addEventListener("click", () => addListing("skill"));
+  document.getElementById("btnAddItem").addEventListener("click",  () => addListing("item"));
+
+  // ── Submit ─────────────────────────────────────────────────
+  document.getElementById("btnSubmit").addEventListener("click", async () => {
+    const displayName = document.getElementById("displayName").value.trim();
+    const email       = document.getElementById("email").value.trim();
+    const area        = document.getElementById("area").value.trim();
+    const errEl       = document.getElementById("formError");
+    const btn         = document.getElementById("btnSubmit");
+
+    errEl.textContent = "";
+
+    if (!displayName) { errEl.textContent = "Please enter a display name."; return; }
+    if (!email)        { errEl.textContent = "Please enter your email address."; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = "Please enter a valid email address."; return;
+    }
+    if (listings.length === 0) {
+      errEl.textContent = "Please add at least one skill or item."; return;
+    }
+    const incomplete = listings.find(l => !l.title.trim());
+    if (incomplete) {
+      errEl.textContent = `One of your ${incomplete.type === "skill" ? "skills" : "items"} is missing a name.`; return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Adding you…";
+
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "register",
+          secret: SECRET_TOKEN,
+          display_name: displayName,
+          email,
+          area,
+          listings: listings.map(({ type, title, description, conditions }) =>
+            ({ type, title: title.trim(), description: description.trim(), conditions: conditions.trim() })
+          )
+        })
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.error);
+      document.getElementById("joinForm").style.display = "none";
+      document.getElementById("successScreen").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      errEl.textContent = err.message || "Something went wrong. Please try again.";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Add me to the map";
+    }
+  });
 
   function esc(str) {
     return String(str || "")
@@ -485,87 +524,65 @@
       .replace(/"/g,"&quot;");
   }
 
-  // ── Filters & search ───────────────────────────────────────
-  document.querySelectorAll(".pill").forEach(pill => {
-    pill.addEventListener("click", () => {
-      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
-      pill.classList.add("active");
-      currentFilter = pill.dataset.filter;
-      render();
-    });
-  });
+  // ── Token-based add-listing mode ───────────────────────────
+  // If ?token=xxx is in the URL, this is an existing member adding more listings.
+  // Hide the "about you" fields, update the UI, and use add_listing instead of register.
 
-  document.getElementById("searchInput").addEventListener("input", render);
+  const urlParams = new URLSearchParams(window.location.search);
+  const memberToken = urlParams.get("token");
 
-  // ── Modal ──────────────────────────────────────────────────
-  function openModal(listingId, title, owner) {
-    activeListing = { listingId, title, owner };
-    document.getElementById("modalSub").textContent = `"${title}" · ${owner}`;
-    document.getElementById("modalForm").style.display = "block";
-    document.getElementById("modalSuccess").style.display = "none";
-    document.getElementById("modalError").textContent = "";
-    document.getElementById("modalBackdrop").classList.add("open");
-    document.getElementById("reqName").focus();
+  if (memberToken) {
+    // Hide the personal details section — already registered
+    document.querySelector(".section:first-of-type").style.display = "none";
+    document.querySelector(".page-title").innerHTML = 'Add more <em>listings</em>';
+    document.querySelector(".page-intro").textContent = "Add more skills or items to your profile.";
+    document.getElementById("btnSubmit").textContent = "Add listings";
+
+    // Override submit to use add_listing action instead of register
+    document.getElementById("btnSubmit").addEventListener("click", async (e) => {
+      e.stopImmediatePropagation(); // prevent the original submit handler
+
+      const errEl = document.getElementById("formError");
+      const btn   = document.getElementById("btnSubmit");
+      errEl.textContent = "";
+
+      if (listings.length === 0) { errEl.textContent = "Please add at least one skill or item."; return; }
+      const incomplete = listings.find(l => !l.title.trim());
+      if (incomplete) { errEl.textContent = `One of your ${incomplete.type === "skill" ? "skills" : "items"} is missing a name.`; return; }
+
+      btn.disabled = true;
+      btn.textContent = "Adding…";
+
+      try {
+        // Send each listing individually using add_listing action
+        for (const l of listings) {
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({
+              action: "add_listing",
+              token: memberToken,
+              type: l.type,
+              title: l.title.trim(),
+              description: l.description.trim(),
+              conditions: l.conditions.trim()
+            })
+          });
+          const data = await res.json();
+          if (!data.ok) throw new Error(data.error);
+        }
+        document.getElementById("joinForm").style.display = "none";
+        document.getElementById("successScreen").style.display = "block";
+        document.querySelector("#successScreen h2").textContent = "Listings added!";
+        document.querySelector("#successScreen p").textContent = "Your new listings are now live.";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (err) {
+        errEl.textContent = err.message || "Something went wrong. Please try again.";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Add listings";
+      }
+    }, true);
   }
-
-  function closeModal() {
-    document.getElementById("modalBackdrop").classList.remove("open");
-    activeListing = null;
-    document.getElementById("reqName").value = "";
-    document.getElementById("reqEmail").value = "";
-    document.getElementById("reqMessage").value = "";
-  }
-
-  document.getElementById("btnCancel").addEventListener("click", closeModal);
-  document.getElementById("btnSuccessClose").addEventListener("click", closeModal);
-  document.getElementById("modalBackdrop").addEventListener("click", e => {
-    if (e.target === document.getElementById("modalBackdrop")) closeModal();
-  });
-
-  document.getElementById("btnSend").addEventListener("click", async () => {
-    const name    = document.getElementById("reqName").value.trim();
-    const email   = document.getElementById("reqEmail").value.trim();
-    const message = document.getElementById("reqMessage").value.trim();
-    const errEl   = document.getElementById("modalError");
-    const btn     = document.getElementById("btnSend");
-
-    if (!name || !email || !message) {
-      errEl.textContent = "Please fill in all fields."; return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errEl.textContent = "Please enter a valid email address."; return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "Sending…";
-    errEl.textContent = "";
-
-    try {
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify({
-          action: "contact",
-          secret: SECRET_TOKEN,
-          listing_id: activeListing.listingId,
-          requester_name: name,
-          requester_email: email,
-          message
-        })
-      });
-      const data = await res.json();
-      if (!data.ok) throw new Error(data.error);
-      document.getElementById("modalForm").style.display = "none";
-      document.getElementById("modalSuccess").style.display = "block";
-    } catch (err) {
-      errEl.textContent = "Something went wrong. Please try again.";
-    } finally {
-      btn.disabled = false;
-      btn.textContent = "Send request";
-    }
-  });
-
-  // ── Init ───────────────────────────────────────────────────
-  loadListings();
 </script>
 </body>
 </html>
